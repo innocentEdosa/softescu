@@ -13,14 +13,6 @@ module.exports = {
   },
   resolve: {
     alias: {
-      components: PATH.resolve(__dirname, 'src/components/'),
-      container: PATH.resolve(__dirname, 'src/container/'),
-      api: PATH.resolve(__dirname, 'src/store/api'),
-      actions: PATH.resolve(__dirname, 'src/store/actions/'),
-      validation: PATH.resolve(__dirname, 'src/helpers/validation/'),
-      fixtures: PATH.resolve(__dirname, 'src/helpers/fixtures/'),
-      HOC: PATH.resolve(__dirname, 'src/HOC'),
-      helpers: PATH.resolve(__dirname, 'src/helpers'),
     },
     extensions: ['.js', '.jsx', '.css'],
   },
