@@ -1,0 +1,8 @@
+{
+  "jumpToAliasFile.alias": {
+    "components": "c:\\src\\components",
+    "containers": "c:\\src\\container",
+    "HOC": "c:\\src\\HOC",
+    "store": "c:\\src\\store"
+  }
+}
