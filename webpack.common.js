@@ -13,6 +13,12 @@ module.exports = {
   },
   resolve: {
     alias: {
+      components: PATH.resolve(__dirname, 'src/components/'),
+      container: PATH.resolve(__dirname, 'src/container/'),
+      HOC: PATH.resolve(__dirname, 'src/HOC/'),
+      store: PATH.resolve(__dirname, 'src/store/'),
+      utils: PATH.resolve(__dirname, 'src/utils/'),
+      fixtures: PATH.resolve(__dirname, 'src/fixtures/'),
     },
     extensions: ['.js', '.jsx', '.css'],
   },
