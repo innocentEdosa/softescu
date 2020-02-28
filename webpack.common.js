@@ -13,6 +13,7 @@ module.exports = {
   },
   resolve: {
     alias: {
+      assets: PATH.resolve(__dirname, 'src/assets/'),
       components: PATH.resolve(__dirname, 'src/components/'),
       container: PATH.resolve(__dirname, 'src/container/'),
       HOC: PATH.resolve(__dirname, 'src/HOC/'),
@@ -51,6 +52,7 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|jpeg|svg|woff|woff2|ttf|otf|eot)$/i,
         use: [
+          '@svgr/webpack',
           {
             loader: 'url-loader',
             options: {

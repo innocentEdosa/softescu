@@ -92,7 +92,7 @@ const TopBar = () => (
                           <Button
                             size="small"
                             variant="contained"
-                            color="secondary"
+                            color="secondary-light"
                           >
                             {t('navigation.login')}
                           </Button>
@@ -106,7 +106,7 @@ const TopBar = () => (
                           <Button
                             size="small"
                             variant="contained"
-                            color="secondary"
+                            color="secondary-light"
                           >
                             {t('navigation.signup')}
                           </Button>
