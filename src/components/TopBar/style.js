@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center',
 
       '& .title-main': {
-        color: theme.palette.secondary.main,
+        color: theme.palette.secondary.dark,
         display: 'flex',
         alignItems: 'center',
         '& > .MuiSvgIcon-root': {

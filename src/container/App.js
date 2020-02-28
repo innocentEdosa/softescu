@@ -4,8 +4,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import React from 'react';
 import routes from 'fixtures/routes';
 import TopBar from 'components/TopBar';
-
-import LoginContainer from './LoginContainer';
+import SignupContainer from 'container/SignupContainer';
+import LoginContainer from 'container/LoginContainer';
 import theme from '../theme/globalstyles';
 
 const App = () => (
@@ -14,7 +14,9 @@ const App = () => (
     <CssBaseline />
     <Switch>
       <Redirect exact from="/" to={routes.login} />
-      <Route exact path="/login" component={LoginContainer} />
+      <Route exact path={routes.login} component={LoginContainer} />
+      <Route exact path={routes.signup} component={SignupContainer} />
+
     </Switch>
   </ThemeProvider>
 );
