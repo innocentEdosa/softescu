@@ -69,7 +69,7 @@ const TopBar = () => (
 
           return (
             <div className={classes.grow}>
-              <AppBar color="primary" position="static">
+              <AppBar color="primary" position="fixed">
                 <Toolbar>
                   <Typography className={classes.title} variant="h6" noWrap>
                     <span className="title-main">

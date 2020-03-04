@@ -8,9 +8,22 @@ const theme = createMuiTheme({
     secondary: {
       main: '#d1c4e9',
     },
+    sub: {
+      main: '#F6F9FF',
+    },
+    button: {
+      cart: '#212121',
+      buyNow: '#6C63FF',
+      preActive: '#ccc',
+    },
+    text: {
+      light: '#fff',
+      preActive: '#eeeeee',
+    },
+
   },
-  status: {
-    danger: 'orange',
+  border: {
+    main: '1px solid #e0e0e0',
   },
 });
 

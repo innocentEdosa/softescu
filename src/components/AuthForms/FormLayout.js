@@ -14,11 +14,13 @@ import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
+    marginTop: '64px',
     minHeight: 'calc(100vh - 64px)',
     backgroundColor: 'white',
   },
   formRoot: {
     padding: '3rem',
+    width: '100%',
   },
   footer: {
     padding: '1rem',
@@ -39,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
       width: '93%',
       height: '25rem',
     },
+  },
+  formWrapper: {
+    maxWidth: '50% !important',
   },
   heading: {
     color: theme.palette.primary.main,
@@ -75,7 +80,7 @@ const FormLayout = ({ children }) => {
           </AlertEmitter>
         </Box>
         <Box
-          minWidth="50%"
+          width="60%"
           display="flex"
           border={1}
           boxShadow={2}

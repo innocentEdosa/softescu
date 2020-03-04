@@ -28,6 +28,23 @@ export const english = {
     firstName: 'First name',
     lastName: 'Last name',
     verifyPassword: 'Verify password',
+    title: 'Title',
+    author: 'Author',
+    bookImg: 'Book image',
+    premium: 'Make premium',
+  },
+  buttons: {
+    addBook: 'Add book',
+    addNewBook: 'Add a new book',
+    cancel: 'cancel',
+  },
+  sideNav: {
+    users: 'Manage users',
+    products: 'Manage products',
+    orders: 'Manage orders',
+  },
+  product: {
+    bookInfo: 'Book info',
   },
 };
 
@@ -60,5 +77,22 @@ export const romania = {
     firstName: 'Nume',
     lastName: 'Numele de familie',
     verifyPassword: 'Verifică parola',
+    title: 'Titlu',
+    author: 'Autor',
+    bookImg: 'Imaginea cărții',
+    premium: 'Faceți premium',
+  },
+  buttons: {
+    addBook: 'Adăugați carte',
+    addNewBook: 'Adăugați o carte nouă',
+    cancel: 'Anulare',
+  },
+  sideNav: {
+    users: 'Gestionare Utilizatori',
+    products: 'Gestionați produsele',
+    orders: 'Gestionați comenzile',
+  },
+  product: {
+    bookInfo: 'Informații despre carte',
   },
 };
