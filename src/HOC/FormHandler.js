@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import validate from 'validation';
+import React, { useState } from 'react';
+import validate from 'validations';
 
 const FormInputHandler = ({ values = {}, children, replyIdentifierMap = {} }) => {
   const [formInput, setFormInput] = useState({
@@ -13,6 +13,25 @@ const FormInputHandler = ({ values = {}, children, replyIdentifierMap = {} }) =>
       ...prevState,
       [name]: value,
     }));
+  };
+
+  const formatInputError = (error) => {
+    if (error) {
+      return error.map((err) => <li>{err}</li>);
+    }
+    return null;
+  };
+
+  const validateOnSubmit = () => {
+    const validationError = validate(formInput, { error: formInput.error });
+    if (Object.keys(validationError).length) {
+      setFormInput((prevState) => ({
+        ...prevState,
+        error: validationError,
+      }));
+      return true;
+    }
+    return false;
   };
 
 
@@ -37,6 +56,8 @@ const FormInputHandler = ({ values = {}, children, replyIdentifierMap = {} }) =>
     handleInputChange,
     handleOnBlur,
     setFormInput,
+    formatInputError,
+    validateOnSubmit,
   });
 };
 

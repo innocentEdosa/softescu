@@ -20,6 +20,8 @@ module.exports = {
       store: PATH.resolve(__dirname, 'src/store/'),
       utils: PATH.resolve(__dirname, 'src/utils/'),
       fixtures: PATH.resolve(__dirname, 'src/fixtures/'),
+      api: PATH.resolve(__dirname, 'src/api/'),
+      validations: PATH.resolve(__dirname, 'src/validations/'),
     },
     extensions: ['.js', '.jsx', '.css'],
   },

@@ -14,11 +14,13 @@ import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
+    marginTop: '64px',
     minHeight: 'calc(100vh - 64px)',
     backgroundColor: 'white',
   },
   formRoot: {
     padding: '3rem',
+    width: '100%',
   },
   footer: {
     padding: '1rem',
@@ -40,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
       height: '25rem',
     },
   },
+  formWrapper: {
+    maxWidth: '50% !important',
+  },
   heading: {
     color: theme.palette.primary.main,
     fontWeight: 'bold',
@@ -47,8 +52,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const icons = [Reading, Booklover, ReadingBook];
+const selectedIcon = icons[Math.floor(Math.random() * 3)
+];
+
 const FormLayout = ({ children }) => {
-  const icons = [Reading, Booklover, ReadingBook];
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -61,7 +69,7 @@ const FormLayout = ({ children }) => {
         bgcolor="white"
       >
         <Box my={3}>
-          <AlertEmitter emitterReference="mainNotification">
+          <AlertEmitter emitterReference="authNotification">
             {({
               show, content, severity, onClose,
             }) => (
@@ -75,7 +83,7 @@ const FormLayout = ({ children }) => {
           </AlertEmitter>
         </Box>
         <Box
-          minWidth="50%"
+          width="60%"
           display="flex"
           border={1}
           boxShadow={2}
@@ -87,8 +95,7 @@ const FormLayout = ({ children }) => {
           <Box width="50%" padding={2}>
             <Box className={classes.authSvgWrapper} my={1}>
               <SvgIcon
-                component={icons[Math.floor(Math.random() * 3)
-                ]}
+                component={selectedIcon}
                 viewBox="0 0 1100 700"
               />
             </Box>

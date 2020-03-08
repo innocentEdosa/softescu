@@ -5,6 +5,9 @@ export const english = {
     store: 'Store',
     login: 'Log in',
     signup: 'Create an account',
+    logout: 'Log out',
+    welcome: 'welcome',
+    admin: 'Admin',
   },
   login: {
     greeting: 'Welcome back',
@@ -28,6 +31,23 @@ export const english = {
     firstName: 'First name',
     lastName: 'Last name',
     verifyPassword: 'Verify password',
+    title: 'Title',
+    author: 'Author',
+    productImg: 'Book image',
+    premium: 'Make premium',
+  },
+  buttons: {
+    addBook: 'Add book',
+    addNewBook: 'Add a new book',
+    cancel: 'cancel',
+  },
+  sideNav: {
+    users: 'Manage users',
+    products: 'Manage products',
+    orders: 'Manage orders',
+  },
+  product: {
+    productInfo: 'Product info',
   },
 };
 
@@ -38,6 +58,9 @@ export const romania = {
     store: 'magazin',
     login: 'Autentificare',
     signup: 'creează un cont',
+    logout: 'deconectați-vă',
+    welcome: 'Bine ati venit',
+    admin: 'admin',
   },
   signup: {
     greeting: 'Creează un cont',
@@ -60,5 +83,22 @@ export const romania = {
     firstName: 'Nume',
     lastName: 'Numele de familie',
     verifyPassword: 'Verifică parola',
+    title: 'Titlu',
+    author: 'Autor',
+    productImg: 'Imaginea cărții',
+    premium: 'Faceți premium',
+  },
+  buttons: {
+    addBook: 'Adăugați carte',
+    addNewBook: 'Adăugați o carte nouă',
+    cancel: 'Anulare',
+  },
+  sideNav: {
+    users: 'Gestionare Utilizatori',
+    products: 'Gestionați produsele',
+    orders: 'Gestionați comenzile',
+  },
+  product: {
+    productInfo: 'Informații despre carte',
   },
 };

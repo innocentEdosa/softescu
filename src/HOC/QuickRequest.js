@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { createApiService } from 'api';
 
 const QuickRequest = ({
   options: {
-    url = null,
-    method = 'post',
-    endPoint = '',
-    params = {},
-  }, children,
+    url = null, method = 'post', endPoint = '', params = {},
+  },
+  children,
 }) => {
-  const service = url ? createApiService(method, endPoint, url) : createApiService(method, endPoint);
+  const service = url
+    ? createApiService(method, endPoint, url)
+    : createApiService(method, endPoint);
   const [dataState, setDataState] = useState({
     isLoading: false,
     data: false,
@@ -40,7 +40,7 @@ const QuickRequest = ({
     })();
   }, []);
 
-  return (children(dataState));
+  return children(dataState);
 };
 
 export default QuickRequest;

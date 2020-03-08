@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -6,11 +7,11 @@ import PropTypes from 'prop-types';
 const RequireAuth = (ComposedComponent) => {
   const ComposedComponentWrapper = (props) => {
     const { location: { pathname }, push } = useHistory();
-    const { isAuthenticated, user: { exp } } = props;
+    const { isAuthenticated } = props;
     useEffect(() => {
       (
         () => {
-          if (!isAuthenticated || exp < Date.now() / 1000) {
+          if (!isAuthenticated) {
             push('/login', {
               redirectPath: pathname,
             });
@@ -21,16 +22,12 @@ const RequireAuth = (ComposedComponent) => {
     return (<ComposedComponent {...props} />);
   };
 
-  const mapStateToProps = ({ auth: { isAuthenticated, user } }) => ({
+  const mapStateToProps = ({ auth: { isAuthenticated } }) => ({
     isAuthenticated,
-    user,
   });
 
   ComposedComponentWrapper.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    user: PropTypes.shape({
-      exp: PropTypes.string,
-    }).isRequired,
   };
 
   return connect(mapStateToProps, null)(ComposedComponentWrapper);
