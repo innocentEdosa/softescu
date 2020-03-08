@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import ToggleComponent from 'HOC/ToggleComponent';
 import qs from 'qs';
 import FormInputHandler from 'HOC/FormHandler';
-import QuickUpload from 'HOC/quickUpload';
+import QuickUpload from 'HOC/QuickUpload';
 import DeleteModal from 'components/DeleteModal';
 
 const ProductsContainer = ({
