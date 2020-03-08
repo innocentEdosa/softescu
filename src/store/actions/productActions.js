@@ -1,7 +1,15 @@
 import {
-  FETCHING_PRODUCTS, FETCHING_PRODUCTS_SUCCESS, FETCHING_PRODUCTS_FAILED, ADDING_PRODUCTS, ADDING_PRODUCTS_FAILED, ADDING_PRODUCTS_SUCCESS,
+  DELETING_PRODUCT,
+  DELETING_PRODUCT_SUCCESS,
+  DELETING_PRODUCT_FAILED,
+  FETCHING_PRODUCTS,
+  FETCHING_PRODUCTS_SUCCESS,
+  FETCHING_PRODUCTS_FAILED,
+  ADDING_PRODUCTS,
+  ADDING_PRODUCTS_FAILED,
+  ADDING_PRODUCTS_SUCCESS,
 } from 'store/actions/actionTypes';
-import { addNewProduct, fetchAllProducts } from 'api';
+import { addNewProduct, fetchAllProducts, deleteProduct } from 'api';
 import { push } from 'connected-react-router';
 import { notify } from 'utils/eventEmitter';
 
@@ -31,5 +39,16 @@ export const addProduct = (productData) => async (dispatch) => {
       autoClose: false,
       severity: 'error',
     });
+  }
+};
+
+export const deleteOneProduct = (productId) => async (dispatch) => {
+  dispatch({ type: DELETING_PRODUCT });
+  try {
+    await deleteProduct(productId);
+    dispatch({ type: DELETING_PRODUCT_SUCCESS, productId });
+    setTimeout(() => dispatch(push('/admin/products')), 1000);
+  } catch (error) {
+    dispatch({ type: DELETING_PRODUCT_FAILED });
   }
 };

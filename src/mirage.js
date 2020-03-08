@@ -125,6 +125,11 @@ const makeServer = ({ environment = 'development' } = {}) => {
         });
         return product;
       });
+
+      this.delete('/deleteproduct/:productid', (schema, request) => {
+        const { productid } = request.params;
+        return schema.products.find(productid).destroy();
+      });
     },
   });
 
