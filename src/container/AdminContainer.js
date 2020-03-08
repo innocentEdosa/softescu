@@ -1,15 +1,17 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ProductsContainer from 'container/ProductsContainer';
 import AdminLayout from 'components/AdminLayout';
 import routes from 'fixtures/routes';
+import RequireAuth from 'HOC/RequireAuth';
 
 const AdminContainer = ({
   match: { path },
 }) => (
   <AdminLayout>
     <Switch>
+      <Redirect exact from={routes.admin} to={`${path}${routes.products}`} />
       <Route path={`${path}${routes.products}`} render={() => <ProductsContainer />} />
     </Switch>
   </AdminLayout>

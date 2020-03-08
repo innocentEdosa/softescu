@@ -1,13 +1,18 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  addBookWrapper: {
+  addProductWrapper: {
     width: '50%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
-  addBookForm: {
+  alertWrapper: {
+    marginBottom: theme.spacing(1),
+  },
+  addProductForm: {
+    display: 'flex',
+    flexDirection: 'column',
     borderRadius: theme.spacing(1),
     border: theme.border.main,
     width: '70%',
@@ -20,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row-reverse',
     marginLeft: '4px',
   },
-  addBookButtonWrapper: {
+  addProductButtonWrapper: {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
@@ -28,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(2),
     },
   },
-  addBookImgWrapper: {
+  addProductImgWrapper: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

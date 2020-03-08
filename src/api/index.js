@@ -1,19 +1,15 @@
 import axios from 'axios';
 // import store from '../index';
 
-const getAxiosInstance = (baseURL = 'https://saasimplweb2.herokuapp.com') => {
+const getAxiosInstance = (baseURL = '/api') => {
   const API_BASE_URL = baseURL;
-  // const state = store.getState();
-  // const { token } = state.auth;
+
   return axios.create({
     baseURL: API_BASE_URL,
-    // headers: {
-    //   'Content-Type': 'application/x-www-form-urlencoded',
-    // },
   });
 };
 
-export const createApiService = (httpVerb, endpoint, baseURL = 'https://saasimplweb2.herokuapp.com') => {
+export const createApiService = (httpVerb, endpoint, baseURL = '/api') => {
   switch (httpVerb.toLowerCase()) {
     case 'post':
       return (params) => getAxiosInstance(baseURL).post(endpoint, params);
@@ -23,4 +19,7 @@ export const createApiService = (httpVerb, endpoint, baseURL = 'https://saasimpl
 };
 
 
-export const signup = createApiService('post', '/api/signup');
+export const signup = createApiService('post', '/signup');
+export const login = createApiService('post', '/login');
+export const fetchAllProducts = createApiService('get', '/products');
+export const addNewProduct = createApiService('post', '/addproduct');

@@ -1,13 +1,14 @@
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import React from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core';
-
+import 'assets/index.scss';
 
 import './languages/i18n';
 import App from 'container/App';
-import store from 'store';
+import configureStore, { history } from 'store';
+import { ConnectedRouter } from 'connected-react-router';
+
 import {
   faEdit,
   faTrashAlt,
@@ -30,14 +31,14 @@ library.add(
   faShoppingCart,
   faCartPlus,
 );
-
+const store = configureStore();
 makeServer();
 
 render(
   <Provider store={store}>
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
       <App />
-    </BrowserRouter>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('react-root'),
 );

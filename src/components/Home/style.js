@@ -7,45 +7,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '64px',
     padding: theme.spacing(5),
   },
-  // showCase: {
-  //   height: '40vh',
-  //   background: 'linear-gradient(to right, rgb(67, 67, 67), rgb(0, 0, 0))',
-  //   display: 'flex',
-  //   position: 'relative',
-
-  //   '&::before': {
-  //     content: "''",
-  //     background: "url('/assets/07.png')",
-  //     opacity: 0.4,
-  //     top: 0,
-  //     left: 0,
-  //     bottom: 0,
-  //     right: 0,
-  //     position: 'absolute',
-  //     zIndex: 1,
-  //     backgroundSize: '100%',
-  //     backgroundPosition: 'center',
-  //     backgroundRepeat: 'no-repeat',
-  //   },
-  // },
-  // showCaseImg: {
-  //   zIndex: 2,
-  //   flexBasis: '50%',
-  //   height: '100%',
-  //   display: 'flex',
-  //   justifyContent: 'flex-end',
-  //   padding: theme.spacing(4),
-  //   '& img': {
-  //     width: '50%',
-  //   },
-  // },
-  // bookDetails: {
-  //   color: 'white',
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   flexGrow: 1,
-
-  // },
   showCase: {
     display: 'flex',
 

@@ -4,6 +4,9 @@ const useStyles = makeStyles((theme) => ({
   productListWrapper: {
     padding: theme.spacing(2),
     width: '80%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   listIconWrapper: {
     fontSize: '18px',

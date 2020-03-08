@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import AuthFormLayout from 'components/AuthForms/FormLayout';
 import Box from '@material-ui/core/Box';
@@ -12,9 +13,21 @@ import Typography from '@material-ui/core/Typography';
 
 import useStyles from './style';
 
-const LoginForm = () => {
+const LoginForm = ({
+  values: {
+    username,
+    password,
+    error: {
+      username: usernameError,
+      password: passwordError,
+    },
+  },
+  onChange, onBlur, loginUser, formatInputError, loginLoading,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
+
+
   return (
     <AuthFormLayout>
       <Box flexGrow={1} px={10} py={3}>
@@ -30,15 +43,22 @@ const LoginForm = () => {
             label={t('inputs.username')}
             type="text"
             variant="outlined"
-              // disabled={loading}
+            disabled={loginLoading}
+            onBlur={onBlur}
+            onChange={onChange}
+            error={usernameError}
+            helperText={
+                formatInputError(usernameError)
+                }
             size="medium"
             required
             fullWidth
             name="username"
+            value={username}
           />
           <TextField
             id={t('inputs.password')}
-              // disabled={loading}
+            value={password}
             label={t('inputs.password')}
             type="password"
             variant="outlined"
@@ -47,17 +67,24 @@ const LoginForm = () => {
             fullWidth
             margin="normal"
             name="password"
+            disabled={loginLoading}
+            onBlur={onBlur}
+            onChange={onChange}
+            error={passwordError}
+            helperText={
+              formatInputError(passwordError)
+              }
           />
           <Button
-              // onClick={loginUser}
+            onClick={loginUser}
             size="medium"
             margin="normal"
             fullWidth
-              // disabled={loading}
+            disabled={loginLoading}
             variant="contained"
             color="primary"
           >
-            {false ? (
+            {loginLoading ? (
               <div className={classes.loaderWrapper}>
                 <CircularProgress size="small" color="secondary" />
               </div>
@@ -75,6 +102,22 @@ const LoginForm = () => {
       </Box>
     </AuthFormLayout>
   );
+};
+
+LoginForm.propTypes = {
+  values: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    error: PropTypes.shape({
+      username: PropTypes.shape([]).isRequired,
+      password: PropTypes.shape([]).isRequired,
+    }).isRequired,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  formatInputError: PropTypes.func.isRequired,
+  loginLoading: PropTypes.bool.isRequired,
 };
 
 export default LoginForm;

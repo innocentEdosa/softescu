@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
+import { logOut } from 'store/actions/authActions';
 
 const SimpleStateHandler = (props) => {
   const location = useLocation();
+  const { push } = useHistory();
   const { i18n } = useTranslation();
 
   const [language, setLang] = useState(i18n.language);
@@ -16,12 +17,26 @@ const SimpleStateHandler = (props) => {
     setLang(selectedLang);
   };
 
+  const logOutUser = (e) => {
+    e.preventDefault();
+    const { logoutUser } = props;
+    logoutUser();
+    return push('/home');
+  };
+
   return (props.children({
-    ...props, ...location, language, changeLanguage,
+    ...props, ...location, language, changeLanguage, logOutUser,
   }));
 };
 
-const mapStateToProps = () => ({
+const mapStateToProps = ({ auth: { isAuthenticated, user: { username = '', isStaff = false } = {} } }) => ({
+  isAuthenticated,
+  username,
+  isStaff,
 });
 
-export default connect(mapStateToProps, null)(SimpleStateHandler);
+const mapDispatchToProps = (dispatch) => ({
+  logoutUser: () => dispatch(logOut()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SimpleStateHandler);

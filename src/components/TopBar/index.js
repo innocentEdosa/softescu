@@ -21,16 +21,19 @@ import useStyles from './style';
 const WhiteTextButton = withStyles((theme) => ({
   root: {
     color: theme.palette.common.white,
+    // textTransform: 'capitalize',
     backgroundColor: 'transparent',
-    // '&:hover': {
-    //   backgroundColor: purple[700],
-    // },
+    '&:hover': {
+      color: theme.palette.secondary.dark,
+    },
   },
 }))(Button);
 const TopBar = () => (
   <SimpleStateHandler>
     {
-        ({ changeLanguage, language, pathname }) => {
+        ({
+          username, isStaff, isAuthenticated, changeLanguage, language, pathname, logOutUser,
+        }) => {
           const { t } = useTranslation();
           const classes = useStyles();
           const [anchorEl, setAnchorEl] = React.useState(null);
@@ -81,11 +84,36 @@ const TopBar = () => (
                   </Typography>
                   <div className={classes.grow} />
                   <div className={classes.navButtonRoot}>
-                    <WhiteTextButton>{t('navigation.home')}</WhiteTextButton>
-                    <WhiteTextButton>{t('navigation.store')}</WhiteTextButton>
-                    <WhiteTextButton>{t('navigation.about')}</WhiteTextButton>
+                    <Link to={routes.home}>
+                      <WhiteTextButton>{t('navigation.home')}</WhiteTextButton>
+                    </Link>
+                    <Link to={routes.store}>
+                      <WhiteTextButton>{t('navigation.store')}</WhiteTextButton>
+                    </Link>
+                    <Link to={routes.about}>
+                      <WhiteTextButton>{t('navigation.about')}</WhiteTextButton>
+
+                    </Link>
                     <ToggleComponent
-                      check={pathname !== routes.login}
+                      check={isAuthenticated && isStaff}
+                      component={(
+                        <Link to={routes.admin}>
+                          <WhiteTextButton>
+                            {t('navigation.admin')}
+                          </WhiteTextButton>
+                        </Link>
+                  )}
+                    />
+                    <ToggleComponent
+                      check={isAuthenticated}
+                      component={(
+                        <Link to={routes.account}>
+                          <WhiteTextButton>{`${t('navigation.welcome')} ${username}`}</WhiteTextButton>
+                        </Link>
+                  )}
+                    />
+                    <ToggleComponent
+                      check={!isAuthenticated && pathname !== routes.login}
                       component={(
                         <Link to={routes.login}>
 
@@ -100,9 +128,9 @@ const TopBar = () => (
                         )}
                     />
                     <ToggleComponent
-                      check={pathname === routes.login}
+                      check={!isAuthenticated && pathname === routes.login}
                       component={(
-                        <Link to="/signup">
+                        <Link to={routes.signup}>
                           <Button
                             size="small"
                             variant="contained"
@@ -111,6 +139,19 @@ const TopBar = () => (
                             {t('navigation.signup')}
                           </Button>
                         </Link>
+                        )}
+                    />
+                    <ToggleComponent
+                      check={isAuthenticated}
+                      component={(
+                        <Button
+                          onClick={logOutUser}
+                          size="small"
+                          variant="contained"
+                          color="secondary-light"
+                        >
+                          {t('navigation.logout')}
+                        </Button>
                         )}
                     />
                   </div>

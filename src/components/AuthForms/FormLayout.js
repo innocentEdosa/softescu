@@ -52,8 +52,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const icons = [Reading, Booklover, ReadingBook];
+const selectedIcon = icons[Math.floor(Math.random() * 3)
+];
+
 const FormLayout = ({ children }) => {
-  const icons = [Reading, Booklover, ReadingBook];
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -66,7 +69,7 @@ const FormLayout = ({ children }) => {
         bgcolor="white"
       >
         <Box my={3}>
-          <AlertEmitter emitterReference="mainNotification">
+          <AlertEmitter emitterReference="authNotification">
             {({
               show, content, severity, onClose,
             }) => (
@@ -92,8 +95,7 @@ const FormLayout = ({ children }) => {
           <Box width="50%" padding={2}>
             <Box className={classes.authSvgWrapper} my={1}>
               <SvgIcon
-                component={icons[Math.floor(Math.random() * 3)
-                ]}
+                component={selectedIcon}
                 viewBox="0 0 1100 700"
               />
             </Box>

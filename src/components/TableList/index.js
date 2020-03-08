@@ -1,4 +1,5 @@
-import React, { Children } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -32,11 +33,16 @@ const TableList = ({ headers = [], children }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-         {children}
+          {children}
         </TableBody>
       </Table>
     </TableContainer>
   );
+};
+
+TableList.propTypes = {
+  headers: PropTypes.shape([]).isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default TableList;

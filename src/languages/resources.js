@@ -5,6 +5,9 @@ export const english = {
     store: 'Store',
     login: 'Log in',
     signup: 'Create an account',
+    logout: 'Log out',
+    welcome: 'welcome',
+    admin: 'Admin',
   },
   login: {
     greeting: 'Welcome back',
@@ -30,7 +33,7 @@ export const english = {
     verifyPassword: 'Verify password',
     title: 'Title',
     author: 'Author',
-    bookImg: 'Book image',
+    productImg: 'Book image',
     premium: 'Make premium',
   },
   buttons: {
@@ -44,7 +47,7 @@ export const english = {
     orders: 'Manage orders',
   },
   product: {
-    bookInfo: 'Book info',
+    productInfo: 'Product info',
   },
 };
 
@@ -55,6 +58,9 @@ export const romania = {
     store: 'magazin',
     login: 'Autentificare',
     signup: 'creează un cont',
+    logout: 'deconectați-vă',
+    welcome: 'Bine ati venit',
+    admin: 'admin',
   },
   signup: {
     greeting: 'Creează un cont',
@@ -79,7 +85,7 @@ export const romania = {
     verifyPassword: 'Verifică parola',
     title: 'Titlu',
     author: 'Autor',
-    bookImg: 'Imaginea cărții',
+    productImg: 'Imaginea cărții',
     premium: 'Faceți premium',
   },
   buttons: {
@@ -93,6 +99,6 @@ export const romania = {
     orders: 'Gestionați comenzile',
   },
   product: {
-    bookInfo: 'Informații despre carte',
+    productInfo: 'Informații despre carte',
   },
 };

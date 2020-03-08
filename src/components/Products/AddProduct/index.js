@@ -4,81 +4,145 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
+import Alerts from 'components/Alerts';
+import AlertEmitter from 'HOC/AlertEmitter';
+import ToggleComponent from 'HOC/ToggleComponent';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import PropTypes from 'prop-types';
 import useStyles from './style';
 
-const AddProduct = () => {
+const AddProduct = ({
+  values: {
+    title,
+    author,
+    isPremium,
+    error: { title: titleError, author: authorError },
+  },
+  onChangePremium,
+  imageUploadState: { img, loading },
+  onBlur,
+  uploadImage,
+  addProduct,
+  onChange,
+  formatInputError,
+  addingProducts,
+  onCancel,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
   return (
-    <div className={classes.addBookWrapper}>
-      <h5>{t('product.bookInfo')}</h5>
-      <form className={classes.addBookForm}>
+    <div className={classes.addProductWrapper}>
+      <h5>{t('product.productInfo')}</h5>
+      <div className={classes.alertWrapper}>
+        <AlertEmitter emitterReference="addProductNotification">
+          {({
+            show, content, severity, onClose,
+          }) => (
+            <Alerts
+              open={show}
+              content={content}
+              severity={severity}
+              onClose={onClose}
+            />
+          )}
+        </AlertEmitter>
+      </div>
+      <form className={classes.addProductForm}>
         <TextField
+          error={titleError}
           size="medium"
           fullWidth
-          id="outlined-basic"
+          id="title"
           label={t('inputs.title')}
           variant="outlined"
+          name="title"
+          value={title}
+          onBlur={onBlur}
+          onChange={onChange}
+          disabled={addingProducts}
+          helperText={formatInputError(titleError)}
         />
         <TextField
+          error={authorError}
           size="medium"
           fullWidth
-          id="outlined-basic"
+          id="author"
           label={t('inputs.author')}
           variant="outlined"
+          name="author"
+          value={author}
+          onBlur={onBlur}
+          onChange={onChange}
+          disabled={addingProducts}
+          helperText={formatInputError(authorError)}
         />
         <TextField
           type="file"
           fullWidth
           size="medium"
-          id="outlined-basic"
-          label={t('inputs.bookImg')}
+          id="imgUrl"
+          label={t('inputs.productImg')}
           variant="outlined"
+          name="imgUrl"
+          disabled={addingProducts}
+          onChange={uploadImage}
           InputLabelProps={{
             shrink: true,
           }}
         />
-        <div className={classes.addBookImgWrapper}>
-          <img src="https://res.cloudinary.com/dqw7jnfgo/image/upload/v1558581693/l2udhwwyojirelzllx5q.jpg" alt="book" />
-        </div>
-        {/* <Card>
-        <CardMedia
-          className={classes.media}
-          image="https://res.cloudinary.com/dqw7jnfgo/image/upload/v1558581693/l2udhwwyojirelzllx5q.jpg"
-          title="Paella dish"
+        <ToggleComponent
+          check={loading}
+          component={(
+            <CircularProgress
+              style={{
+                height: '20px',
+                width: '20px',
+                alignSelf: 'center',
+              }}
+              color="primary"
+            />
+          )}
         />
-      </Card> */}
+        <ToggleComponent
+          check={img}
+          component={(
+            <div className={classes.addProductImgWrapper}>
+              <img src={img} alt="product" />
+            </div>
+          )}
+        />
         <div>
           <FormControlLabel
             className={classes.premiumTrack}
             control={(
               <Switch
-          // value={fuelTrack}
+
+                disabled={addingProducts}
+                value={isPremium}
+                onChange={onChangePremium}
                 color="primary"
               />
-)}
+            )}
             label={t('inputs.premium')}
-            name="premiumBook"
+            name="isPremium"
           />
         </div>
-        <div className={classes.addBookButtonWrapper}>
+        <div className={classes.addProductButtonWrapper}>
           <Button
-          // onClick={onRegisterUser}
             size="medium"
             margin="normal"
-          // fullWidth
-          // disabled={signUpLoading}
+            disabled={addingProducts}
             variant="contained"
             color="default"
+            onClick={onCancel}
           >
             {t('buttons.cancel')}
           </Button>
           <Button
-        // onClick={createTeams}
+            onClick={addProduct}
             size="medium"
             margin="normal"
-          // fullWidth
-          // disabled={signUpLoading}
+            disabled={addingProducts}
             variant="contained"
             color="primary"
           >
@@ -89,5 +153,47 @@ const AddProduct = () => {
     </div>
   );
 };
+
+AddProduct.propTypes = {
+  values: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    error: PropTypes.shape({
+      title: PropTypes.array,
+      author: PropTypes.array,
+
+    }).isRequired,
+  }).isRequired,
+  onChangePremium: PropTypes.func.isRequired,
+  imageUploadState: PropTypes.shape({
+    img: PropTypes.string,
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+  }).isRequired,
+  onBlur: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  formatInputError: PropTypes.func.isRequired,
+  addProduct: PropTypes.func.isRequired,
+  addingProducts: PropTypes.bool.isRequired,
+};
+
+// values: {
+//   title,
+//   author,
+//   isPremium,
+//   error: { title: titleError, author: authorError, imgUrl: imgUrlError },
+// },
+// onChangePremium,
+// imageUploadState: { img, loading, error },
+// onBlur,
+// uploadImage,
+// addProduct,
+// onChange,
+// formatInputError,
+// addingProducts,
+// onCancel,
 
 export default AddProduct;
