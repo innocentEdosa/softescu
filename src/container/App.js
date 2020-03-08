@@ -2,7 +2,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import AdminContainer from 'container/AdminContainer';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import HomeContainer from 'container/HomeContainer';
+import HomeContainer from 'container/homeContainer';
 import LoginContainer from 'container/LoginContainer';
 import React from 'react';
 import routes from 'fixtures/routes';
