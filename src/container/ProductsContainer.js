@@ -127,6 +127,8 @@ ProductsContainer.propTypes = {
   addingProducts: PropTypes.bool.isRequired,
   products: PropTypes.shape([]).isRequired,
   addNewProduct: PropTypes.func.isRequired,
+  deleteProduct: PropTypes.func.isRequired,
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);
