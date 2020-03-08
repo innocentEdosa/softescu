@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchProducts, addProduct } from 'store/actions/productActions';
+import { fetchProducts, addProduct, deleteOneProduct } from 'store/actions/productActions';
 import Layout1 from 'components/Layouts/Layout1';
 import ProductList from 'components/Products/ProductList';
 import AddProduct from 'components/Products/AddProduct';
@@ -10,6 +10,7 @@ import ToggleComponent from 'HOC/ToggleComponent';
 import qs from 'qs';
 import FormInputHandler from 'HOC/FormHandler';
 import QuickUpload from 'HOC/quickUpload';
+import DeleteModal from 'components/DeleteModal';
 
 const ProductsContainer = ({
   fetchAllProducts,
@@ -17,10 +18,15 @@ const ProductsContainer = ({
   addingProducts,
   products,
   addNewProduct,
+  deleteProduct,
 }) => {
   useEffect(() => {
     fetchAllProducts();
   }, []);
+
+  const deleteProductHandler = (productId) => {
+    deleteProduct(productId);
+  };
 
   const { search } = useLocation();
   const { mode } = qs.parse(search, { ignoreQueryPrefix: true });
@@ -97,6 +103,7 @@ const ProductsContainer = ({
           </QuickUpload>
         )}
       />
+      <DeleteModal onDelete={deleteProductHandler} />
     </Layout1>
   );
 };
@@ -108,6 +115,7 @@ const mapStateToProps = ({ product: { addingProducts, fetchingProducts, products
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  deleteProduct: (identifier) => dispatch(deleteOneProduct(identifier)),
   fetchAllProducts: () => dispatch(fetchProducts()),
   addNewProduct: (productData) => dispatch(addProduct(productData)),
 });

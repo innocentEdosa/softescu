@@ -1,18 +1,22 @@
-import React from 'react';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useHistory } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import icons from 'fixtures/icons';
 import PropTypes from 'prop-types';
+import React from 'react';
+import routes from 'fixtures/routes';
+import TableCell from '@material-ui/core/TableCell';
 import TableList from 'components/TableList';
 import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import icons from 'fixtures/icons';
 import ToggleComponent from 'HOC/ToggleComponent';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import useStyles from './style';
 
+import useStyles from './style';
 
 const ProductList = ({ products, fetchingProducts }) => {
   const classes = useStyles();
-
+  const { push } = useHistory();
   return (
     <div className={classes.productListWrapper}>
       <ToggleComponent check={fetchingProducts} component={<CircularProgress color="primary" />} />
@@ -23,7 +27,7 @@ const ProductList = ({ products, fetchingProducts }) => {
             {products.map(({
               id, title, author, publishedAt,
             }, index) => (
-              <TableRow key={title}>
+              <TableRow key={title + id}>
                 <TableCell component="th" scope="row">
                   {index + 1}
                 </TableCell>
@@ -31,10 +35,22 @@ const ProductList = ({ products, fetchingProducts }) => {
                 <TableCell align="right">{author}</TableCell>
                 <TableCell align="right">{new Date(publishedAt).toDateString()}</TableCell>
                 <TableCell align="right">
-                  <span className={classes.listIconWrapper}>
+                  <span
+                    role="alert"
+                    className={classes.listIconWrapper}
+                  >
                     <FontAwesomeIcon size="1x" icon={icons.edit} />
                   </span>
-                  <span className={classes.listIconWrapper}>
+                  <span
+                    onClick={() => push(routes.deleteProduct, {
+                      type: 'Product',
+                      name: title,
+                      identifier: id,
+                    })}
+                    role="alert"
+
+                    className={classes.listIconWrapper}
+                  >
                     <FontAwesomeIcon size="1x" icon={icons.trash} />
                   </span>
                 </TableCell>
