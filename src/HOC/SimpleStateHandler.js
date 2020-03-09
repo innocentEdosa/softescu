@@ -6,7 +6,7 @@ import { logOut } from 'store/actions/authActions';
 
 const SimpleStateHandler = (props) => {
   const location = useLocation();
-  const { push } = useHistory();
+  const { push, goBack } = useHistory();
   const { i18n } = useTranslation();
 
   const [language, setLang] = useState(i18n.language);
@@ -19,13 +19,14 @@ const SimpleStateHandler = (props) => {
 
   const logOutUser = (e) => {
     e.preventDefault();
+    localStorage.removeItem('user');
     const { logoutUser } = props;
     logoutUser();
     return push('/home');
   };
 
   return (props.children({
-    ...props, ...location, language, changeLanguage, logOutUser,
+    ...props, ...location, language, changeLanguage, logOutUser, goBack,
   }));
 };
 

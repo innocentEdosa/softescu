@@ -8,8 +8,17 @@ import {
   ADDING_PRODUCTS,
   ADDING_PRODUCTS_FAILED,
   ADDING_PRODUCTS_SUCCESS,
+  EDITING_PRODUCT,
+  EDITING_PRODUCT_SUCCESS,
+  EDITING_PRODUCT_FAILED,
+  PURCHASE_PRODUCT,
 } from 'store/actions/actionTypes';
-import { addNewProduct, fetchAllProducts, deleteProduct } from 'api';
+import {
+  editProduct,
+  addNewProduct,
+  fetchAllProducts,
+  deleteProduct,
+} from 'api';
 import { push } from 'connected-react-router';
 import { notify } from 'utils/eventEmitter';
 
@@ -47,8 +56,44 @@ export const deleteOneProduct = (productId) => async (dispatch) => {
   try {
     await deleteProduct(productId);
     dispatch({ type: DELETING_PRODUCT_SUCCESS, productId });
-    setTimeout(() => dispatch(push('/admin/products')), 1000);
+    dispatch(push('/admin/products'));
+    notify('layoutNotification', 'Product deleted successfully', {
+      autoClose: true,
+      severity: 'success',
+    });
   } catch (error) {
     dispatch({ type: DELETING_PRODUCT_FAILED });
+    dispatch(push('/admin/products'));
+    notify('layoutNotification', 'Product delete failed', {
+      autoClose: false,
+      severity: 'error',
+    });
   }
+};
+
+export const editOneProduct = (params) => async (dispatch) => {
+  dispatch({ type: EDITING_PRODUCT });
+  try {
+    const { data: { product } } = await editProduct(params);
+    dispatch({ type: EDITING_PRODUCT_SUCCESS, product });
+    notify('addProductNotification', 'Product edited successfully', {
+      autoClose: true,
+      severity: 'success',
+    });
+    setTimeout(() => dispatch(push('/admin/products')), 1000);
+  } catch (error) {
+    dispatch({ type: EDITING_PRODUCT_FAILED });
+    notify('addProductNotification', 'we could not edit your product, please try again', {
+      autoClose: false,
+      severity: 'success',
+    });
+  }
+};
+
+export const purchaseProduct = (productId) => async (dispatch) => {
+  dispatch({ type: PURCHASE_PRODUCT, productId });
+  notify('purchaseNotification', 'Thanks for buying (--)', {
+    autoClose: true,
+    severity: 'success',
+  });
 };

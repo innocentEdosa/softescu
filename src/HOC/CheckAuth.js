@@ -24,6 +24,7 @@ const CheckAuth = (ComposedComponent) => {
             } if (isAuthenticated) {
               return replace(routes.home);
             }
+            return null;
           }, 1000);
         }
       )();

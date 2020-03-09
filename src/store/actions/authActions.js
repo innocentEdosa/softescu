@@ -9,6 +9,7 @@ export const signUp = (userData) => async (dispatch) => {
   try {
     const { data: user } = await signup(userData);
     dispatch({ type: AUTH_SUCCESS, user });
+    localStorage.setItem('user', JSON.stringify(user));
     notify('authNotification', 'Sign up successful', {
       autoClose: true,
       severity: 'success',
@@ -27,6 +28,7 @@ export const logIn = (userData) => async (dispatch) => {
   try {
     const { data: user } = await login(userData);
     dispatch({ type: AUTH_SUCCESS, user });
+    localStorage.setItem('user', JSON.stringify(user));
     notify('authNotification', 'Login success', {
       autoClose: true,
       severity: 'success',

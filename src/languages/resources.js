@@ -40,6 +40,9 @@ export const english = {
     addBook: 'Add book',
     addNewBook: 'Add a new book',
     cancel: 'cancel',
+    buyNow: 'Buy now',
+    pay: 'Pay',
+    back: 'Go back',
   },
   sideNav: {
     users: 'Manage users',
@@ -48,6 +51,17 @@ export const english = {
   },
   product: {
     productInfo: 'Product info',
+  },
+  heading: {
+    recent: 'Recent Books',
+    special: 'Special Offer',
+    datePublished: 'Date published',
+    title: 'Title',
+    serial: 'Serial',
+    author: 'Author',
+  },
+  prompt: {
+    purchased: 'You own this product',
   },
 };
 
@@ -92,6 +106,9 @@ export const romania = {
     addBook: 'Adăugați carte',
     addNewBook: 'Adăugați o carte nouă',
     cancel: 'Anulare',
+    buyNow: 'Cumpără acum',
+    pay: 'A plati',
+    back: 'Întoarce-te',
   },
   sideNav: {
     users: 'Gestionare Utilizatori',
@@ -100,5 +117,16 @@ export const romania = {
   },
   product: {
     productInfo: 'Informații despre carte',
+  },
+  heading: {
+    recent: 'Cărți recente',
+    special: 'Oferta speciala',
+    datePublished: 'Data publicării',
+    author: 'Autor',
+    title: 'Titlu',
+    serial: 'Serial',
+  },
+  prompt: {
+    purchased: 'Dețineți acest produs',
   },
 };

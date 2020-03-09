@@ -23,7 +23,10 @@ const FormInputHandler = ({ values = {}, children, replyIdentifierMap = {} }) =>
   };
 
   const validateOnSubmit = () => {
-    const validationError = validate(formInput, { error: formInput.error });
+    delete formInput.verifyPassword;
+    const validationError = validate(formInput, {
+      error: formInput.error,
+    });
     if (Object.keys(validationError).length) {
       setFormInput((prevState) => ({
         ...prevState,
@@ -42,7 +45,7 @@ const FormInputHandler = ({ values = {}, children, replyIdentifierMap = {} }) =>
     const validationError = validate(formInput, {
       error,
       focusedFields: [name],
-      compare: name === 'vpsw' ? 'psw' : false,
+      compare: name === 'verifyPassword' ? 'password' : false,
       replyIdentifier: replyIdentifierMap[name],
     });
     setFormInput((prevState) => ({

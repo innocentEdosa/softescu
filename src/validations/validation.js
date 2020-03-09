@@ -2,20 +2,22 @@ import {
   compareValueValidation, nameValidation, passwordValidation, emailValidation,
 } from './validationSchema';
 
-export const validate = (formInput, { error = {}, focusedFields = false, compare = false, replyIdentifier = '' }) => {
+export const validate = (
+  formInput,
+  {
+    error = {}, focusedFields = false, compare = false, replyIdentifier = '',
+  },
+) => {
   let validationError = { ...error } || {};
 
   const handleValidation = (fieldValue, options) => {
     switch (options.fieldName) {
       case 'username':
-      case 'organization':
         return nameValidation(fieldValue, options);
       case 'email':
         return emailValidation(fieldValue, options);
       case 'password':
-      case 'psw':
         return passwordValidation(fieldValue, options);
-      case 'vpsw':
       case 'verifyPassword':
         return compareValueValidation(fieldValue, options);
       default:
@@ -35,7 +37,7 @@ export const validate = (formInput, { error = {}, focusedFields = false, compare
       if (!fieldValue) {
         validationError[fieldName] = validationError[fieldName]
           ? [...validationError[fieldName], `Please Provide ${fieldName}`]
-          : [`Please Provide ${replyText}`];
+          : [`Please provide ${replyText}`];
         // eslint-disable-next-line no-continue
         continue;
       }
@@ -46,10 +48,7 @@ export const validate = (formInput, { error = {}, focusedFields = false, compare
         compare: compare ? formInput[compare] : false,
         replyIdentifier: replyText,
       };
-      const newError = handleValidation(
-        fieldValue,
-        validationOptions,
-      );
+      const newError = handleValidation(fieldValue, validationOptions);
       validationError = { ...validationError, ...newError };
     }
   })();

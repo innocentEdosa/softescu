@@ -4,10 +4,21 @@ import {
   LOGOUT, AUTH_SUCCESS, AUTH_START, AUTH_FAILED,
 } from 'store/actions/actionTypes';
 
+const getInitialUserState = () => {
+  const user = JSON.parse(localStorage.getItem('user')) || {};
+  return user;
+};
+
+const getIsAuthenticatedInitialState = () => {
+  if (Object.keys(getInitialUserState()).length) {
+    return true;
+  }
+  return false;
+};
 const initialState = {
   loading: false,
-  isAuthenticated: false,
-  user: {},
+  isAuthenticated: getIsAuthenticatedInitialState(),
+  user: getInitialUserState(),
   authRedirect: '',
 };
 

@@ -16,6 +16,7 @@ const AddProduct = ({
     title,
     author,
     isPremium,
+    imgUrl,
     error: { title: titleError, author: authorError },
   },
   onChangePremium,
@@ -27,6 +28,8 @@ const AddProduct = ({
   formatInputError,
   addingProducts,
   onCancel,
+  mode,
+  editProduct,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -104,10 +107,10 @@ const AddProduct = ({
           )}
         />
         <ToggleComponent
-          check={img}
+          check={img || imgUrl}
           component={(
             <div className={classes.addProductImgWrapper}>
-              <img src={img} alt="product" />
+              <img src={img || imgUrl} alt="product" />
             </div>
           )}
         />
@@ -116,7 +119,7 @@ const AddProduct = ({
             className={classes.premiumTrack}
             control={(
               <Switch
-
+                checked={isPremium}
                 disabled={addingProducts}
                 value={isPremium}
                 onChange={onChangePremium}
@@ -138,16 +141,36 @@ const AddProduct = ({
           >
             {t('buttons.cancel')}
           </Button>
-          <Button
-            onClick={addProduct}
-            size="medium"
-            margin="normal"
-            disabled={addingProducts}
-            variant="contained"
-            color="primary"
-          >
-            {t('buttons.addBook')}
-          </Button>
+          <ToggleComponent
+            check={mode === 'edit'}
+            component={(
+              <Button
+                onClick={editProduct}
+                size="medium"
+                margin="normal"
+                disabled={addingProducts}
+                variant="contained"
+                color="primary"
+              >
+                Edit Product
+              </Button>
+        )}
+          />
+          <ToggleComponent
+            check={mode === 'addproduct'}
+            component={(
+              <Button
+                onClick={addProduct}
+                size="medium"
+                margin="normal"
+                disabled={addingProducts}
+                variant="contained"
+                color="primary"
+              >
+                {t('buttons.addBook')}
+              </Button>
+        )}
+          />
         </div>
       </form>
     </div>
@@ -159,6 +182,7 @@ AddProduct.propTypes = {
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     isPremium: PropTypes.bool.isRequired,
+    imgUrl: PropTypes.string.isRequired,
     error: PropTypes.shape({
       title: PropTypes.array,
       author: PropTypes.array,
@@ -178,22 +202,8 @@ AddProduct.propTypes = {
   formatInputError: PropTypes.func.isRequired,
   addProduct: PropTypes.func.isRequired,
   addingProducts: PropTypes.bool.isRequired,
+  mode: PropTypes.string.isRequired,
+  editProduct: PropTypes.func.isRequired,
 };
-
-// values: {
-//   title,
-//   author,
-//   isPremium,
-//   error: { title: titleError, author: authorError, imgUrl: imgUrlError },
-// },
-// onChangePremium,
-// imageUploadState: { img, loading, error },
-// onBlur,
-// uploadImage,
-// addProduct,
-// onChange,
-// formatInputError,
-// addingProducts,
-// onCancel,
 
 export default AddProduct;

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import Home from 'components/Home';
+import Store from 'components/Store';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchProducts } from 'store/actions/productActions';
 import PurchaseConfirmation from 'HOC/PurchaseConfirmation';
 
-const HomeContainer = ({ fetchAllProducts, products, fetchingProducts }) => {
+const StoreContainer = ({ fetchAllProducts, products, fetchingProducts }) => {
   useEffect(() => {
     fetchAllProducts();
   }, []);
@@ -14,7 +14,7 @@ const HomeContainer = ({ fetchAllProducts, products, fetchingProducts }) => {
     <>
       <PurchaseConfirmation
         render={({ openPurchaseConfirmation }) => (
-          <Home
+          <Store
             openConfirmation={openPurchaseConfirmation}
             products={products}
             fetchingProducts={fetchingProducts}
@@ -38,10 +38,10 @@ const mapDispatchToProps = (dispatch) => ({
   fetchAllProducts: () => dispatch(fetchProducts()),
 });
 
-HomeContainer.propTypes = {
+StoreContainer.propTypes = {
   fetchAllProducts: PropTypes.func.isRequired,
   products: PropTypes.shape([]).isRequired,
   fetchingProducts: PropTypes.bool.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(StoreContainer);

@@ -12,8 +12,7 @@ const useStyles = makeStyles((theme) => ({
 
     '& .bookList': {
       padding: theme.spacing(2),
-      flexBasis: '75%',
-
+      flexGrow: 1,
       '& .bookDescription': {
         paddingBottom: '0px',
       },
@@ -24,16 +23,6 @@ const useStyles = makeStyles((theme) => ({
       '& .book': {
         background: 'tomato',
         width: '100%',
-      },
-    },
-    '& .premiumBooks': {
-      margin: theme.spacing(2),
-      marginLeft: theme.spacing(4),
-      padding: theme.spacing(2),
-      flexBasis: '25%',
-      '& .buyNowBtn': {
-        background: theme.palette.button.cart,
-        color: '#fff',
       },
       '& .strike': {
         textDecoration: 'line-through',
