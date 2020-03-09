@@ -15,6 +15,8 @@ export const createApiService = (httpVerb, endpoint, baseURL = '/api') => {
       return (params) => getAxiosInstance(baseURL).post(endpoint, params);
     case 'delete':
       return (id) => getAxiosInstance(baseURL).delete(`${endpoint}/${id}`);
+    case 'patch':
+      return (params) => getAxiosInstance(baseURL).patch(endpoint, params);
     default:
       return (params) => getAxiosInstance(baseURL).get(endpoint, params);
   }
@@ -26,3 +28,4 @@ export const login = createApiService('post', '/login');
 export const fetchAllProducts = createApiService('get', '/products');
 export const addNewProduct = createApiService('post', '/addproduct');
 export const deleteProduct = createApiService('delete', '/deleteproduct');
+export const editProduct = createApiService('patch', '/editproduct');

@@ -10,8 +10,9 @@ const useStyles = makeStyles((theme) => ({
   layout1Main: {
     flexGrow: 1,
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'start',
+    justifyContent: 'start',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 }));
 

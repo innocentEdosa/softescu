@@ -10,6 +10,7 @@ const routes = {
   account: '/account',
   addProduct: '/admin/products?mode=addproduct',
   deleteProduct: '/admin/products?mode=delete',
+  editProduct: '/admin/products?mode=edit',
 
 };
 

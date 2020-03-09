@@ -16,15 +16,13 @@ import useStyles from './style';
 
 const Home = ({ products = [], fetchingProducts, openConfirmation }) => {
   const classes = useStyles();
-  const premiumProducts = products.filter(({ isPremium }) => isPremium);
-  const nonPremiumProducts = products.filter(({ isPremium }) => !isPremium);
   const { t } = useTranslation();
 
   const printProducts = (productsArray) => productsArray.map(
     ({
       isPurchased, author, title, publishedAt, imgUrl, isPremium,
     }, index) => (
-      <Grid item xs={12} sm={!isPremium ? 4 : 12}>
+      <Grid item xs={12} sm={3}>
         <Card>
           <CardActionArea>
             <CardMedia
@@ -47,7 +45,7 @@ const Home = ({ products = [], fetchingProducts, openConfirmation }) => {
                 {' '}
               </p>
               <p>
-                {`${t('heading.datePublished')} ${new Date(
+                {`${t('heading.datePublished')}: ${new Date(
                   publishedAt,
                 ).toDateString()}`}
                 {' '}
@@ -104,7 +102,7 @@ const Home = ({ products = [], fetchingProducts, openConfirmation }) => {
             check={fetchingProducts}
             component={(
               <Grid container spacing={3}>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(() => (
                   <Grid item xs={12} sm={4}>
                     <Skeleton variant="rect" width={210} height={118} />
                     {' '}
@@ -119,36 +117,7 @@ const Home = ({ products = [], fetchingProducts, openConfirmation }) => {
             check={!fetchingProducts && products.length}
             component={(
               <Grid container spacing={3}>
-                {printProducts(nonPremiumProducts)}
-              </Grid>
-            )}
-          />
-        </div>
-        <div className="premiumBooks">
-          <Typography gutterBottom variant="h5" component="h2">
-            {t('heading.special')}
-            {' '}
-          </Typography>
-          <ToggleComponent
-            check={fetchingProducts}
-            component={(
-              <Grid container spacing={3}>
-                {[1, 2].map(() => (
-                  <Grid item xs={12} sm={12}>
-                    <Skeleton variant="rect" width={210} height={118} />
-                    {' '}
-                    <Skeleton />
-                    <Skeleton width="60%" />
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-          />
-          <ToggleComponent
-            check={!fetchingProducts && products.length}
-            component={(
-              <Grid container spacing={3}>
-                {printProducts(premiumProducts)}
+                {printProducts(products)}
               </Grid>
             )}
           />

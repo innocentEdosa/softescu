@@ -11,19 +11,27 @@ import TableCell from '@material-ui/core/TableCell';
 import TableList from 'components/TableList';
 import TableRow from '@material-ui/core/TableRow';
 import ToggleComponent from 'HOC/ToggleComponent';
+import { useTranslation } from 'react-i18next';
 
 import useStyles from './style';
 
 const ProductList = ({ products, fetchingProducts }) => {
   const classes = useStyles();
   const { push } = useHistory();
+  const { t } = useTranslation();
+
   return (
     <div className={classes.productListWrapper}>
-      <ToggleComponent check={fetchingProducts} component={<CircularProgress color="primary" />} />
+      <ToggleComponent
+        check={fetchingProducts}
+        component={<CircularProgress color="primary" />}
+      />
       <ToggleComponent
         check={!fetchingProducts}
         component={(
-          <TableList headers={['Serial', 'Title', 'Author', 'Published date', '']}>
+          <TableList
+            headers={[t('heading.serial'), t('heading.title'), t('heading.author'), t('heading.datePublished'), '']}
+          >
             {products.map(({
               id, title, author, publishedAt,
             }, index) => (
@@ -33,11 +41,16 @@ const ProductList = ({ products, fetchingProducts }) => {
                 </TableCell>
                 <TableCell align="right">{title}</TableCell>
                 <TableCell align="right">{author}</TableCell>
-                <TableCell align="right">{new Date(publishedAt).toDateString()}</TableCell>
+                <TableCell align="right">
+                  {new Date(publishedAt).toDateString()}
+                </TableCell>
                 <TableCell align="right">
                   <span
                     role="alert"
                     className={classes.listIconWrapper}
+                    onClick={() => push(routes.editProduct, {
+                      ...products[index],
+                    })}
                   >
                     <FontAwesomeIcon size="1x" icon={icons.edit} />
                   </span>
@@ -48,7 +61,6 @@ const ProductList = ({ products, fetchingProducts }) => {
                       identifier: id,
                     })}
                     role="alert"
-
                     className={classes.listIconWrapper}
                   >
                     <FontAwesomeIcon size="1x" icon={icons.trash} />
@@ -57,7 +69,7 @@ const ProductList = ({ products, fetchingProducts }) => {
               </TableRow>
             ))}
           </TableList>
-    )}
+        )}
       />
     </div>
   );

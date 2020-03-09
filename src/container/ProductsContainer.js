@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchProducts, addProduct, deleteOneProduct } from 'store/actions/productActions';
+import {
+  fetchProducts, editOneProduct, addProduct, deleteOneProduct,
+} from 'store/actions/productActions';
 import Layout1 from 'components/Layouts/Layout1';
 import ProductList from 'components/Products/ProductList';
-import AddProduct from 'components/Products/AddProduct';
-import { useLocation } from 'react-router-dom';
+import AddOrEditProduct from 'components/Products/AddProduct';
+import { useLocation, useHistory } from 'react-router-dom';
 import ToggleComponent from 'HOC/ToggleComponent';
 import qs from 'qs';
 import FormInputHandler from 'HOC/FormHandler';
 import QuickUpload from 'HOC/QuickUpload';
 import DeleteModal from 'components/DeleteModal';
+
 
 const ProductsContainer = ({
   fetchAllProducts,
@@ -19,6 +22,7 @@ const ProductsContainer = ({
   products,
   addNewProduct,
   deleteProduct,
+  editProduct,
 }) => {
   useEffect(() => {
     fetchAllProducts();
@@ -28,7 +32,8 @@ const ProductsContainer = ({
     deleteProduct(productId);
   };
 
-  const { search } = useLocation();
+  const { search, state } = useLocation();
+  const { goBack } = useHistory();
   const { mode } = qs.parse(search, { ignoreQueryPrefix: true });
   return (
     <Layout1>
@@ -37,7 +42,7 @@ const ProductsContainer = ({
         component={<ProductList products={products} fetchingProducts={fetchingProducts} />}
       />
       <ToggleComponent
-        check={mode === 'addproduct'}
+        check={mode === 'addproduct' || mode === 'edit'}
         component={(
           <QuickUpload>
             {({ uploadImage, imageUploadState }) => (
@@ -54,9 +59,26 @@ const ProductsContainer = ({
                   handleOnBlur,
                   handleInputChange,
                   formatInputError,
-                  // validateOnSubmit,
+                  validateOnSubmit,
                   setFormInput,
                 }) => {
+                  useEffect(() => {
+                    if (mode === 'edit') {
+                      setFormInput((prevFormInput) => ({
+                        ...prevFormInput,
+                        ...state,
+                      }));
+                    }
+                  }, []);
+
+                  const editProductHandler = (e) => {
+                    e.preventDefault();
+                    editProduct({
+                      ...formInput,
+                      imgUrl: formInput.imgUrl || imageUploadState.img,
+                    });
+                  };
+
                   const handlePremiumChoice = (e) => {
                     e.preventDefault();
                     const { checked, name } = e.target;
@@ -75,16 +97,22 @@ const ProductsContainer = ({
                       isPremium: false,
                       error: {},
                     }));
+                    goBack();
                   };
                   const addProductHandler = (e) => {
                     e.preventDefault();
-                    addNewProduct({
-                      ...formInput,
-                      imgUrl: imageUploadState.img,
-                    });
+                    const isError = validateOnSubmit();
+                    if (!isError) {
+                      return addNewProduct({
+                        ...formInput,
+                        imgUrl: imageUploadState.img,
+                      });
+                    }
+                    return null;
                   };
                   return (
-                    <AddProduct
+                    <AddOrEditProduct
+                      mode={mode}
                       onCancel={onCancel}
                       addingProducts={addingProducts}
                       imageUploadState={imageUploadState}
@@ -95,6 +123,7 @@ const ProductsContainer = ({
                       onBlur={handleOnBlur}
                       onChange={handleInputChange}
                       formatInputError={formatInputError}
+                      editProduct={editProductHandler}
                     />
                   );
                 }}
@@ -116,6 +145,7 @@ const mapStateToProps = ({ product: { addingProducts, fetchingProducts, products
 
 const mapDispatchToProps = (dispatch) => ({
   deleteProduct: (identifier) => dispatch(deleteOneProduct(identifier)),
+  editProduct: (productData) => dispatch(editOneProduct(productData)),
   fetchAllProducts: () => dispatch(fetchProducts()),
   addNewProduct: (productData) => dispatch(addProduct(productData)),
 });
@@ -128,6 +158,7 @@ ProductsContainer.propTypes = {
   products: PropTypes.shape([]).isRequired,
   addNewProduct: PropTypes.func.isRequired,
   deleteProduct: PropTypes.func.isRequired,
+  editProduct: PropTypes.func.isRequired,
 
 };
 

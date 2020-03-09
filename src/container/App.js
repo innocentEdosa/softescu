@@ -9,6 +9,8 @@ import routes from 'fixtures/routes';
 import SignupContainer from 'container/SignupContainer';
 import TopBar from 'components/TopBar';
 import AccountContainer from 'container/AccountContainer';
+import StoreContainer from 'container/StoreContainer';
+import AboutContainer from 'container/AboutContainer';
 
 import theme from '../theme/globalstyles';
 
@@ -21,6 +23,8 @@ const App = () => (
       <Route exact path={routes.login} component={LoginContainer} />
       <Route exact path={routes.signup} component={SignupContainer} />
       <Route exact path={routes.home} component={HomeContainer} />
+      <Route exact path={routes.store} component={StoreContainer} />
+      <Route exact path={routes.about} component={AboutContainer} />
       <Route exact path={routes.account} component={AccountContainer} />
       <Route path={routes.admin} component={AdminContainer} />
 

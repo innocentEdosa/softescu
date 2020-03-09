@@ -7,16 +7,26 @@ import { signUp } from 'store/actions/authActions';
 import CheckAuth from 'HOC/CheckAuth';
 
 const SignupContainer = ({ signup, loading }) => (
-  <FormInputHandler values={{
-    email: '',
-    username: '',
-    phoneNumber: '',
-    firstName: '',
-    lastName: '',
-    password: '',
-    verifyPassword: '',
-    error: {},
-  }}
+  <FormInputHandler
+    values={{
+      email: '',
+      username: '',
+      phoneNumber: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+      verifyPassword: '',
+      error: {},
+    }}
+    replyIdentifierMap={{
+      phoneNumber: 'Telephone number',
+      firstName: 'First name',
+      lastName: 'Last name',
+      verifyPassword: 'Verify Password',
+      email: 'Email',
+      username: 'Username',
+      password: 'Password',
+    }}
   >
     {
       ({
@@ -25,7 +35,10 @@ const SignupContainer = ({ signup, loading }) => (
         const userSignup = (e) => {
           e.preventDefault();
           const isError = validateOnSubmit();
-          return signup(formInput);
+          if (!isError) {
+            return signup(formInput);
+          }
+          return null;
         };
 
         return (

@@ -22,4 +22,4 @@ AdminContainer.propTypes = {
   match: PropTypes.shape({ path: PropTypes.string.isRequired }).isRequired,
 };
 
-export default AdminContainer;
+export default RequireAuth(AdminContainer);
